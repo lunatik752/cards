@@ -2,9 +2,9 @@ import React from 'react';
 import style from './Button.module.css'
 
 type PropsType = {
-    nameButton: string
-    disabled: boolean
-    onClick: () => void
+    title: string
+    disabled?: boolean
+    onClick?: () => void
 
 }
 
@@ -15,7 +15,7 @@ const Button = (props: PropsType) => {
             <button className={style.button}
                     onClick={props.onClick}
                     disabled={props.disabled}
-            >{props.nameButton}
+            >{props.title}
             </button>
         </div>
     )

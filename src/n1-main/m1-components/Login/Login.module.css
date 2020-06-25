@@ -1,0 +1,34 @@
+.loginWrapper {
+    height: 300px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(-45deg, #65b7f6, #0000ff);
+    border: black;
+}
+
+.loginForm {
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.title {
+    color: #f1cb3f;
+}
+
+.rememberMe {
+    color: #f1cb3f;
+}
+
+.rememberMe input {
+    margin: auto 10px;
+
+    vertical-align: middle;
+}

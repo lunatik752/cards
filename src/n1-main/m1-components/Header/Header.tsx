@@ -3,6 +3,7 @@ import Navbar from "./Navbar/Navbar";
 import styles from './Header.module.css'
 import logo from '../../../assets/ing/logo.png'
 import Button from "../common/Button/Button";
+import {NavLink} from "react-router-dom";
 
 const Header = () => {
     return (
@@ -13,8 +14,7 @@ const Header = () => {
                     <h1>Cards</h1>
                 </div>
                 <Navbar/>
-                <Button nameButton='Log in' disabled={false} onClick={() => {
-                }}/>
+                <NavLink to={'/login'}><Button title='Login'/></NavLink>
             </div>
         </div>
     )

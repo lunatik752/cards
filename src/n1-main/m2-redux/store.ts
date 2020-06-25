@@ -5,6 +5,7 @@ let rootReducers = combineReducers({
 
 });
 
+
 type RootReducersType = typeof rootReducers;
 export type AppStateType = ReturnType<RootReducersType>
 

@@ -6,6 +6,7 @@ import store from './m2-redux/store';
 import Header from "./m1-components/Header/Header";
 import HomePage from "./m1-components/HomePage/HomePage";
 import AnotherPage from "./m1-components/anotherPage/AnotherPage";
+import Login from "./m1-components/Login/Login";
 
 
 const App = () => {
@@ -17,6 +18,8 @@ const App = () => {
                     <Header/>
                     <Route path={'/homePage'} render={() => <HomePage/>}/>
                     <Route path='/anotherPage' render={() => <AnotherPage/>}/>
+                    <Route path='/login' render={() => <Login/>}/>
+
                 </div>
             </Provider>
         </HashRouter>
