@@ -7,10 +7,8 @@ const Navbar = () => {
     return (
         <div>
             <div className={style.menuList}>
-
                     <NavLink to={'/homePage'}>home page</NavLink>
                     <NavLink to={'/anotherPage'}>another  page</NavLink>
-
             </div>
         </div>
     );

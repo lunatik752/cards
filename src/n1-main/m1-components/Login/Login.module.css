@@ -1,6 +1,6 @@
 .loginWrapper {
-    height: 300px;
-    width: 200px;
+    height: 350px;
+    width: 250px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -10,18 +10,23 @@
     border: black;
 }
 
+.title {
+    font-size: 22px;
+    color: #f1cb3f;
+}
+
 .loginForm {
     height: 60%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-
 }
 
-.title {
-    color: #f1cb3f;
+.loginForm input {
+    font-size: 16px;
 }
+
 
 .rememberMe {
     color: #f1cb3f;
