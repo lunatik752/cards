@@ -1,0 +1,7 @@
+.app {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: gray;
+    min-height: 100vh;
+}
