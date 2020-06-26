@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Login.module.css'
 import Button from "../common/Button/Button";
+import Input from "../common/Input/Input";
 
 
 const Login = () => {
@@ -27,12 +28,11 @@ const LoginForm = (props: PropsType) => {
     return (
         <form className={styles.loginForm}>
             <div>
-                <input placeholder='Email'
-                       name='email'/>
+                <Input placeholderValue='Email'
+                       type='email'/>
             </div>
             <div>
-                <input placeholder='Password'
-                       name='password'
+                <Input placeholderValue='Password'
                        type='password'/>
             </div>
             <div className={styles.rememberMe}>
