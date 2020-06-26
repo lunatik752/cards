@@ -1,6 +1,5 @@
 import React from "react";
-import styles from './SignUp.css'
-
+import styles from './SignUp.module.css'
 
 const SignUp = () => {
     return (
