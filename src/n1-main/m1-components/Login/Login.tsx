@@ -51,7 +51,7 @@ const LoginForm = (props: PropsType) => {
                 <Button title='Sign in' onClick={props.onSubmit}/>
             </form>
             <div className={styles.signUp}>
-            <span>Not registered! <NavLink to={'/recoverPassword'} activeClassName={styles.active}>Sign up</NavLink> now.</span>
+            <span>Not registered! <NavLink to={'/signUp'} activeClassName={styles.active}>Sign up</NavLink> now.</span>
             </div>
         </>
     );
