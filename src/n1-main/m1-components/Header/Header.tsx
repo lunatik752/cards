@@ -1,4 +1,4 @@
-import React from "react";
+    import React from "react";
 import Navbar from "./Navbar/Navbar";
 import styles from './Header.module.css'
 import logo from '../../../assets/ing/logo.png'

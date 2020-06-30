@@ -1,3 +1,43 @@
-.pageWrapper {
+.signUpWrapper {
+    height: 350px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(-45deg, #65b7f6, #0000ff);
+    border: black;
+}
 
+.title {
+    font-size: 22px;
+    color: #f1cb3f;
+}
+
+.signUpForm {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.signUpForm input {
+    font-size: 16px;
+}
+
+.signIn {
+    margin-top: 20px;
+    color: #f1cb3f;
+}
+
+.signIn a {
+    color: #f1cb3f;
+
+
+}
+
+.signIn a:hover {
+    color: #de3f40;
 }
