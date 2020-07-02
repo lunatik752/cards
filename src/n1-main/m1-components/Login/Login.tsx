@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './Login.module.css'
 import Button from "../common/Button/Button";
 import Input from "../common/Input/Input";
@@ -10,6 +10,9 @@ const Login = () => {
     const onSubmit = () => {
         alert('Login')
     };
+
+    const [email, setStatus] = useState<string>('whitemaxim@gmail.com');
+
 
     return (
         <div className={styles.loginWrapper}>
@@ -25,16 +28,18 @@ type PropsType = {
     onSubmit: () => void
 }
 
+
+
 const LoginForm = (props: PropsType) => {
     return (
         <>
             <form className={styles.loginForm}>
                 <div>
-                    <Input placeholderValue='Email'
+                    <Input placeholder='Email'
                            type='email'/>
                 </div>
                 <div>
-                    <Input placeholderValue='Password'
+                    <Input placeholder='Password'
                            type='password'/>
                 </div>
                 <div className={styles.recoverPassword}>
@@ -48,7 +53,7 @@ const LoginForm = (props: PropsType) => {
                     />
                     <label> remember me</label>
                 </div>
-                <Button title='Sign in' onClick={props.onSubmit}/>
+                <Button name='Sign in' onClick={props.onSubmit}/>
             </form>
             <div className={styles.signUp}>
             <span>Not registered! <NavLink to={'/signUp'} activeClassName={styles.active}>Sign up</NavLink> now.</span>

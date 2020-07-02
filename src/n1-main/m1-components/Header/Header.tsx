@@ -14,7 +14,7 @@ const Header = () => {
                     <h1>Cards</h1>
                 </div>
                 <Navbar/>
-                <NavLink to={'/login'}><Button title='Login'/></NavLink>
+                <NavLink to={'/login'}><Button name='Login'/></NavLink>
             </div>
         </div>
     )
