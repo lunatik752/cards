@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useCallback, useState} from 'react';
 import styles from './Login.module.css'
 import Button from "../common/Button/Button";
 import Input from "../common/Input/Input";
@@ -7,9 +7,18 @@ import {NavLink} from "react-router-dom";
 
 const Login = () => {
 
-    const [email, setEmailInputValue] = useState<string>('');
-    const [password, setPasswordInputValue] = useState<string>('');
-    const [rememberMe, setRememberMeInputValue] = useState<boolean>(false);
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [rememberMe, setRememberMe] = useState<boolean>(false);
+
+    const setEmailCallback = useCallback((e: ChangeEvent<HTMLInputElement>) => setEmail(e.currentTarget.value),
+        [setEmail]);
+
+    const setPasswordCallback = useCallback((e: ChangeEvent<HTMLInputElement>) => setPassword(e.currentTarget.value),
+        [setPassword]);
+
+    const setRememberMeCallback = useCallback((e: ChangeEvent<HTMLInputElement>) => setRememberMe(e.currentTarget.checked),
+        [setRememberMe]);
 
 
     const onSubmit = () => {
@@ -22,11 +31,11 @@ const Login = () => {
                 <h2>Login</h2>
             </div>
             <LoginForm email={email}
-                       setEmailInputValue={setEmailInputValue}
+                       setEmail={setEmailCallback}
                        password={password}
-                       setPasswordInputValue={setPasswordInputValue}
+                       setPassword={setPasswordCallback}
                        rememberMe={rememberMe}
-                       setRememberMeInputValue={setRememberMeInputValue}
+                       setRememberMe={setRememberMeCallback}
                        onSubmit={onSubmit}/>
         </div>
     )
@@ -34,25 +43,15 @@ const Login = () => {
 
 type PropsType = {
     email: string
-    setEmailInputValue: (value: string) => void
+    setEmail: (email: ChangeEvent<HTMLInputElement>) => void
     password: string
-    setPasswordInputValue: (value: string) => void
+    setPassword: (password: ChangeEvent<HTMLInputElement>) => void
     rememberMe: boolean
-    setRememberMeInputValue: (value: boolean) => void
+    setRememberMe: (rememberMe: ChangeEvent<HTMLInputElement>) => void
     onSubmit: () => void
 }
 
 const LoginForm = (props: PropsType) => {
-
-    const onEmailInputValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-        props.setEmailInputValue(e.currentTarget.value)
-    }
-    const onPasswordInputValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-        props.setPasswordInputValue(e.currentTarget.value)
-    }
-    const onRememberMeInputValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-        props.setRememberMeInputValue(e.currentTarget.checked)
-    }
 
     return (
         <>
@@ -61,13 +60,13 @@ const LoginForm = (props: PropsType) => {
                     <Input placeholder='Email'
                            type='email'
                            value={props.email}
-                           onChange={onEmailInputValueChange}/>
+                           onChange={props.setEmail}/>
                 </div>
                 <div>
                     <Input placeholder='Password'
                            type='password'
                            value={props.password}
-                           onChange={onPasswordInputValueChange}/>
+                           onChange={props.setPassword}/>
                 </div>
                 <div className={styles.recoverPassword}>
                     <NavLink to={'/recoverPassword'} activeClassName={styles.active}>Forgot password?</NavLink>
@@ -78,7 +77,7 @@ const LoginForm = (props: PropsType) => {
                         type='checkbox'
                         name='rememberMe'
                         checked={props.rememberMe}
-                        onChange={onRememberMeInputValueChange}
+                        onChange={props.setRememberMe}
                     />
                     <label> remember me</label>
                 </div>
