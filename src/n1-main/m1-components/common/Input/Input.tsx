@@ -15,7 +15,7 @@ const Input = (props: InputPropsType) => {
 
     return (
         <>
-            <input className={styles.input} {...restProps} type="text" onKeyPress={onClickEnter}/>
+            <input className={styles.input} {...restProps}  onKeyPress={onClickEnter}/>
             {error ? <span>{error}</span> : ''}
         </>
     );
