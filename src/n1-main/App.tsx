@@ -1,12 +1,11 @@
 import React from 'react';
 import styles from './App.module.css';
-import {HashRouter, Route} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import {Provider} from 'react-redux';
 import store from './m2-redux/store';
 import Header from "./m1-components/Header/Header";
-import Profile from "./m1-components/Profile/Profile";
-import SignUp from "./m1-components/SignUp/SignUp";
-import Login from "./m1-components/Login/Login";
+
+import Routes  from "./m1-components/Routes/Routes";
 
 
 const App = () => {
@@ -16,10 +15,7 @@ const App = () => {
             <Provider store={store}>
                 <div className={styles.app}>
                     <Header/>
-                    <Route path={'/profile'} render={() => <Profile/>}/>
-                    <Route path='/signUp' render={() => <SignUp/>}/>
-                    <Route path='/login' render={() => <Login/>}/>
-
+                    <Routes/>
                 </div>
             </Provider>
         </HashRouter>
