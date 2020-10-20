@@ -8,9 +8,10 @@ let rootReducers = combineReducers({
     signUp: registerReducer
 });
 
+export type AppRootStateType = ReturnType<typeof rootReducers>
 
-type RootReducersType = typeof rootReducers;
-export type AppStateType = ReturnType<RootReducersType>
+export const store = createStore(rootReducers, applyMiddleware(thunkMiddleware));
 
-const store = createStore(rootReducers, applyMiddleware(thunkMiddleware));
-export default store
+
+// @ts-ignore
+window.store = store;
