@@ -20,6 +20,7 @@ const Routes: React.FC = () => {
             <Route path={SIGN_IN_PATH} render={() => <Login/>}/>
             <Route path={SIGN_UP_PATH} render={() => <SignUp/>}/>
             <Route path={RECOVER_PATH} render={() => <></>}/>
+            <Route path={RECOVER_PATH} render={() => <></>}/>
 
             <Route path={PROFILE_PATH} render={() => <Profile/>}/>
         </Switch>
