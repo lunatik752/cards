@@ -3,6 +3,7 @@ import styles from './Login.module.css'
 import Button from "../common/Button/Button";
 import Input from "../common/Input/Input";
 import {NavLink} from "react-router-dom";
+import {RECOVER_PASS_PATH} from "../Routes/Routes";
 
 
 const Login = () => {
@@ -69,7 +70,7 @@ const LoginForm = (props: PropsType) => {
                            onChange={props.setPassword}/>
                 </div>
                 <div className={styles.recoverPassword}>
-                    <NavLink to={'/recoverPassword'} activeClassName={styles.active}>Forgot password?</NavLink>
+                    <NavLink to={RECOVER_PASS_PATH} activeClassName={styles.active}>Forgot password?</NavLink>
                 </div>
 
                 <div className={styles.rememberMe}>

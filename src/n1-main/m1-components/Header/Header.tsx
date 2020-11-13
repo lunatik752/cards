@@ -4,6 +4,7 @@ import styles from './Header.module.css'
 import logo from '../../../assets/ing/logo.png'
 import Button from "../common/Button/Button";
 import {NavLink} from "react-router-dom";
+import {SIGN_IN_PATH} from "../Routes/Routes";
 
 const Header = () => {
     return (
@@ -14,7 +15,7 @@ const Header = () => {
                     <h1>Cards</h1>
                 </div>
                 <Navbar/>
-                <NavLink to={'/login'}><Button name='Login'/></NavLink>
+                <NavLink to={SIGN_IN_PATH}><Button name='Login'/></NavLink>
             </div>
         </div>
     )
