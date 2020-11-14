@@ -3,7 +3,7 @@ import styles from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 import {CHANGE_PASS_PATH, PROFILE_PATH, RECOVER_PASS_PATH, SIGN_UP_PATH} from "../../Routes/Routes";
 
-const Navbar = () => {
+export const Navbar = () => {
 
     return (
         <div>
@@ -18,4 +18,3 @@ const Navbar = () => {
 };
 
 
-export default Navbar;

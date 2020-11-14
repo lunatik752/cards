@@ -1,10 +1,10 @@
 import React from "react";
-import Navbar from "./Navbar/Navbar";
 import styles from './Header.module.css'
 import logo from '../../../assets/ing/logo.png'
 import Button from "../common/Button/Button";
 import {NavLink} from "react-router-dom";
 import {SIGN_IN_PATH} from "../Routes/Routes";
+import {Navbar} from "./Navbar/Navbar";
 
 const Header = () => {
     return (
