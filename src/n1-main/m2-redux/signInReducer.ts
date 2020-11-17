@@ -21,7 +21,6 @@ const initialState: InitialStateType = {
 }
 
 export const signInReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
-    debugger
     switch (action.type) {
         case SET_IS_LOGGED_IN:
             return {...state, isLoggedIn: action.value};
@@ -47,7 +46,6 @@ export const setUserData = (userData: ResponseDataType) => ({type: SET_USER_DATA
 
 // Thunk
 export const logIn = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<ActionsType>) => {
-    debugger
     authApi.login(email, password, rememberMe)
         .then(res => {
             if (res.data) {
