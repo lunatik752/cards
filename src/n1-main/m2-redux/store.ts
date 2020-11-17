@@ -26,4 +26,4 @@ export const store = createStore(rootReducers, applyMiddleware(thunkMiddleware))
 window.store = store;
 
 
-console.log(rootReducers);
+console.log(store);
