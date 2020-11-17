@@ -7,7 +7,7 @@ import { ResponseDataType } from "../../m3-dal/auth-api";
 
 const Profile = React.memo(() => {
 
-const userData = useSelector<AppRootStateType>(state => state.signIn)
+const userData = useSelector<AppRootStateType>(state => state.signIn.userData)
 
     console.log(userData);
 

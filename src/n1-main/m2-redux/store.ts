@@ -14,6 +14,7 @@ const rootReducers = combineReducers({
     profile: profileReducer
 });
 
+
 export type AppRootStateType = ReturnType<typeof rootReducers>
 
 export const store = createStore(rootReducers, applyMiddleware(thunkMiddleware));
@@ -21,3 +22,6 @@ export const store = createStore(rootReducers, applyMiddleware(thunkMiddleware))
 
 // @ts-ignore
 window.store = store;
+
+
+console.log(rootReducers);

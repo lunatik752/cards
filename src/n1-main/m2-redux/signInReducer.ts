@@ -1,5 +1,5 @@
 import {authApi, ResponseDataType} from "../m3-dal/auth-api"
-import { Dispatch } from "react"
+import { Dispatch } from "redux"
 
 const SET_IS_LOGGED_IN = 'cards/signIn/SET-IS-LOGGED-IN'
 const SET_ERROR = 'cards/signIn/SET-ERROR'
@@ -17,7 +17,18 @@ type InitialStateType = {
 const initialState: InitialStateType = {
     isLoggedIn: false,
     error: null,
-    userData: {}
+    userData: {
+        _id: '123',
+        email: '123',
+        name: '123',
+        publicCardPacksCount: 123,
+        created: undefined,
+        updated: undefined,
+        isAdmin: true,
+        verified: true,
+        rememberMe: true,
+        error: '123'
+    }
 }
 
 export const signInReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
