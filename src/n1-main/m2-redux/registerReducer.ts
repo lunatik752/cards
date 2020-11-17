@@ -49,7 +49,6 @@ export const setErrorMessage = (payload: string) => ({type: SET_ERROR_MESSAGE, p
 // Thunk
 
 export const registerUser = (email: string, password: string, isSendData: boolean) => (dispatch: Dispatch) => {
-
     dispatch(submitResidterData(isSendData))
     authApi.register(email, password)
         .then(res => {
@@ -63,7 +62,5 @@ export const registerUser = (email: string, password: string, isSendData: boolea
         dispatch(addedUser(false))
         dispatch(setErrorMessage('Register failed. Try again...'))
     })
-
-    // dispatch(submitResidterData(false))
 }
 
