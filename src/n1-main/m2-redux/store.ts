@@ -6,7 +6,7 @@ import {recoverPassReducer} from "./recoverPassReducer";
 import {changePassReducer} from "./changePassReducer";
 import {profileReducer} from "./profileReducer";
 
-let rootReducers = combineReducers({
+const rootReducers = combineReducers({
     signUp: registerReducer,
     signIn: signInReducer,
     recoverPass: recoverPassReducer,
