@@ -14,6 +14,18 @@ export type ResponseDataType = {
     error: string
 }
 
+export type ResponseDataAddedUserType = {
+    created: Date
+    email: string
+    isAdmin: boolean
+    name: string
+    publicCardPacksCount: number
+    rememberMe: boolean
+    updated: Date
+    verified: boolean
+    __v: number
+    _id: string
+}
 
 const instance = axios.create({
     baseURL: 'http://localhost:7542/2.0/',
@@ -23,8 +35,12 @@ const instance = axios.create({
 
 export const authApi = {
     me() {
-        return instance.post<ResponseDataType>(`/auth/me`, {})
+        return instance.post<ResponseDataType>(`auth/me`, {})
     },
+    register(email: string, password: string) {
+        return instance.post<ResponseDataAddedUserType>(`auth/register`, {email, password})
+    },
+
     login(email: string, password: string, rememberMe: boolean) {
         return instance.post<ResponseDataType>('/auth/login', {email, password, rememberMe})
     }
