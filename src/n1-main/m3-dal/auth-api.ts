@@ -14,6 +14,19 @@ export type ResponseDataType = {
     error: string
 }
 
+export type ResponseDataAddedUserType = {
+    created: Date
+    email: string
+    isAdmin: boolean
+    name: string
+    publicCardPacksCount: number
+    rememberMe: boolean
+    updated: Date
+    verified: boolean
+    __v: number
+    _id: string
+}
+
 const instance = axios.create({
     baseURL: 'http://localhost:7542/2.0/',
     // baseURL: 'https://github.com/IgnatZakalinsky/cards-nya-back-2-0',
@@ -24,5 +37,10 @@ export const authApi = {
     me() {
         return instance.post<ResponseDataType>(`auth/me`, {})
     },
+    register(email: string, password: string) {
+        debugger
+        return instance.post<ResponseDataAddedUserType>(`auth/register`, {email, password})
+    },
+
 
 }

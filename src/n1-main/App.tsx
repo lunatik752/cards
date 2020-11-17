@@ -4,7 +4,6 @@ import {HashRouter} from "react-router-dom";
 import {Provider} from 'react-redux';
 import {store} from './m2-redux/store';
 import Header from "./m1-components/Header/Header";
-
 import Routes  from "./m1-components/Routes/Routes";
 
 

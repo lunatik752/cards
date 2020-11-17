@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useCallback, useState} from 'react';
 import styles from './Login.module.css'
-import Button from "../common/Button/Button";
-import Input from "../common/Input/Input";
-import {NavLink} from "react-router-dom";
+import Button from '../common/Button/Button';
+import Input from '../common/Input/Input';
+import {NavLink} from 'react-router-dom';
 
 
 const Login = () => {
