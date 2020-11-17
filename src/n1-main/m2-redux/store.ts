@@ -19,5 +19,7 @@ export type AppRootStateType = ReturnType<typeof rootReducers>
 export const store = createStore(rootReducers, applyMiddleware(thunkMiddleware));
 
 
+//Shidesin_comment
+
 // @ts-ignore
 window.store = store;
