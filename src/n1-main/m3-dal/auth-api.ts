@@ -14,6 +14,7 @@ export type ResponseDataType = {
     error: string
 }
 
+
 const instance = axios.create({
     baseURL: 'http://localhost:7542/2.0/',
     // baseURL: 'https://github.com/IgnatZakalinsky/cards-nya-back-2-0',
@@ -22,7 +23,12 @@ const instance = axios.create({
 
 export const authApi = {
     me() {
-        return instance.post<ResponseDataType>(`auth/me`, {})
+        debugger
+        return instance.post<ResponseDataType>(`/auth/me`, {})
     },
+    login(email: string, password: string, rememberMe: boolean) {
+        debugger
+        return instance.post('/auth/login', {email, password, rememberMe})
+    }
 
 }

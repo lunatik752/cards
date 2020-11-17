@@ -1,4 +1,5 @@
-import { ResponseDataType } from "../m3-dal/auth-api"
+import {authApi, ResponseDataType} from "../m3-dal/auth-api"
+import { Dispatch } from "react"
 
 const SET_IS_LOGGED_IN = 'cards/signIn/SET-IS-LOGGED-IN'
 const SET_ERROR = 'cards/signIn/SET-ERROR'
@@ -20,6 +21,7 @@ const initialState: InitialStateType = {
 }
 
 export const signInReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+    debugger
     switch (action.type) {
         case SET_IS_LOGGED_IN:
             return {...state, isLoggedIn: action.value};
@@ -44,4 +46,18 @@ export const setUserData = (userData: ResponseDataType) => ({type: SET_USER_DATA
 
 
 // Thunk
-
+export const logIn = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<ActionsType>) => {
+    debugger
+    authApi.login(email, password, rememberMe)
+        .then(res => {
+            if (res.data) {
+                dispatch(setIsLoggedIn(true));
+                dispatch(setUserData(res.data));
+            } else {
+                dispatch(setError('error'));
+            }
+        })
+        .catch((error) => {
+            dispatch(setError(error.response ? error.response.data.error : 'Some error occurred'));
+        })
+}
