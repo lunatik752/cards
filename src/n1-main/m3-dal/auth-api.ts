@@ -40,9 +40,7 @@ export const authApi = {
     register(email: string, password: string) {
         return instance.post<ResponseDataAddedUserType>(`auth/register`, {email, password})
     },
-
     login(email: string, password: string, rememberMe: boolean) {
         return instance.post<ResponseDataType>('/auth/login', {email, password, rememberMe})
-    }
-
+    },
 }
