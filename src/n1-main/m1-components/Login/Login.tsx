@@ -1,12 +1,18 @@
-import React, {ChangeEvent, useCallback, useState} from 'react';
+import React, {ChangeEvent, useCallback, useState, MouseEvent} from 'react';
 import styles from './Login.module.css'
 import Button from "../common/Button/Button";
 import Input from "../common/Input/Input";
-import {NavLink} from "react-router-dom";
-import {RECOVER_PASS_PATH} from "../Routes/Routes";
+import {NavLink, Redirect} from "react-router-dom";
+import {RECOVER_PASS_PATH, PROFILE_PATH, SIGN_UP_PATH} from "../Routes/Routes";
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootStateType} from "../../m2-redux/store";
+import {logIn} from "../../m2-redux/signInReducer";
 
 
-const Login = () => {
+const Login = React.memo(() => {
+
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.signIn.isLoggedIn);
+    const dispatch = useDispatch()
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -22,9 +28,14 @@ const Login = () => {
         [setRememberMe]);
 
 
-    const onSubmit = () => {
-        alert('Login')
-    };
+    const onSubmit = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        dispatch(logIn(email, password, rememberMe))
+    }, [email, password, rememberMe, dispatch]);
+
+    if (isLoggedIn) {
+        return <Redirect to={PROFILE_PATH}/>
+    }
 
     return (
         <div className={styles.loginWrapper}>
@@ -40,7 +51,7 @@ const Login = () => {
                        onSubmit={onSubmit}/>
         </div>
     )
-};
+});
 
 type PropsType = {
     email: string
@@ -49,10 +60,10 @@ type PropsType = {
     setPassword: (password: ChangeEvent<HTMLInputElement>) => void
     rememberMe: boolean
     setRememberMe: (rememberMe: ChangeEvent<HTMLInputElement>) => void
-    onSubmit: () => void
+    onSubmit: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-const LoginForm = (props: PropsType) => {
+const LoginForm = React.memo((props: PropsType) => {
 
     return (
         <>
@@ -85,12 +96,12 @@ const LoginForm = (props: PropsType) => {
                 <Button name='Sign in' onClick={props.onSubmit}/>
             </form>
             <div className={styles.signUp}>
-                <span>Not registered! <NavLink to={'/signUp'}
+                <span>Not registered! <NavLink to={SIGN_UP_PATH }
                                                activeClassName={styles.active}>Sign up</NavLink> now.</span>
             </div>
         </>
     );
-}
+})
 
 
 export default Login;
