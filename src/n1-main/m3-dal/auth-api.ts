@@ -1,46 +1,36 @@
-import axios from 'axios'
+import {instance} from './instance'
+import {UserDataType} from "./profile-api";
 
-export type ResponseDataType = {
-    _id: string
-    email: string
-    name: string
-    avatar?: string
-    publicCardPacksCount: number
-    created: Date
-    updated: Date
-    isAdmin: boolean
-    verified: boolean
-    rememberMe: boolean
-    error: string
-}
+
+export type ResponseDataType = UserDataType & { error: string }
+
 
 export type ResponseDataAddedUserType = {
-    created: Date
+    created: string
     email: string
     isAdmin: boolean
     name: string
     publicCardPacksCount: number
     rememberMe: boolean
-    updated: Date
+    updated: string
     verified: boolean
     __v: number
     _id: string
 }
 
-const instance = axios.create({
-    baseURL: 'http://localhost:7542/2.0/',
-    // baseURL: 'https://github.com/IgnatZakalinsky/cards-nya-back-2-0',
-    withCredentials: true
-})
+export type LogoutResponseDataType = {
+
+}
+
 
 export const authApi = {
-    me() {
-        return instance.post<ResponseDataType>(`auth/me`, {})
-    },
     register(email: string, password: string) {
         return instance.post<ResponseDataAddedUserType>(`auth/register`, {email, password})
     },
     login(email: string, password: string, rememberMe: boolean) {
         return instance.post<ResponseDataType>('/auth/login', {email, password, rememberMe})
     },
+    logout() {
+        return instance.delete<LogoutResponseDataType>('auth/me')
+    }
 }

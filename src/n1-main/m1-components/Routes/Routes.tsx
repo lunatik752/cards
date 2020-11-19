@@ -19,7 +19,7 @@ export const CHANGE_PASS_PATH = '/changePassword';
 const Routes: React.FC = () => {
     return (
         <Switch>
-            <Route exact path={'/'} render={() => <Redirect to={SIGN_IN_PATH}/>}/>
+            <Route exact path={'/'} render={() => <Redirect to={PROFILE_PATH}/>}/>
 
             <Route path={SIGN_IN_PATH} render={() => <Login/>}/>
             <Route path={SIGN_UP_PATH} render={() => <SignUp/>}/>
