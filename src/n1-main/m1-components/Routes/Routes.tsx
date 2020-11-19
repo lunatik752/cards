@@ -5,7 +5,7 @@ import SignUp from "../SignUp/SignUp";
 import Profile from "../Profile/Profile";
 import RecoverPass from '../RecoverPass/RecoverPass';
 import ChangePass from "../ChangePass/ChangePass";
-import { Page404 } from '../Page404/Page404';
+import {Page404} from "../Page404/Page404";
 
 
 // all project paths
