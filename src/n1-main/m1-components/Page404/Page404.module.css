@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.errorNumber {
+    font-size: 100px;
+    font-weight: 700;
+    letter-spacing: 14px;
+}
+
+.text {
+    font-size: 30px;
+    font-weight: 500;
+}
+
+

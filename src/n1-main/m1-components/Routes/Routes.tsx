@@ -5,6 +5,7 @@ import SignUp from "../SignUp/SignUp";
 import Profile from "../Profile/Profile";
 import RecoverPass from '../RecoverPass/RecoverPass';
 import ChangePass from "../ChangePass/ChangePass";
+import { Page404 } from '../Page404/Page404';
 
 
 // all project paths
@@ -25,6 +26,7 @@ const Routes: React.FC = () => {
             <Route path={RECOVER_PASS_PATH} render={() => <RecoverPass/>}/>
             <Route path={PROFILE_PATH} render={() => <Profile/>}/>
             <Route path={CHANGE_PASS_PATH} render={() => <ChangePass/>}/>
+            <Route path={'*'} render={() => <Page404/>}/>
         </Switch>
     );
 };
