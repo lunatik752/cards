@@ -6,20 +6,12 @@ export type ResponseDataType = UserDataType & { error: string }
 
 
 export type ResponseDataAddedUserType = {
-    created: string
-    email: string
-    isAdmin: boolean
-    name: string
-    publicCardPacksCount: number
-    rememberMe: boolean
-    updated: string
-    verified: boolean
-    __v: number
-    _id: string
+    error: string
 }
 
 export type LogoutResponseDataType = {
-
+    info: string,
+    error: string
 }
 
 
@@ -28,7 +20,7 @@ export const authApi = {
         return instance.post<ResponseDataAddedUserType>(`auth/register`, {email, password})
     },
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<ResponseDataType>('/auth/login', {email, password, rememberMe})
+        return instance.post<ResponseDataType>('auth/login', {email, password, rememberMe})
     },
     logout() {
         return instance.delete<LogoutResponseDataType>('auth/me')

@@ -32,8 +32,6 @@ const Profile = React.memo(() => {
         <div className={styles.pageWrapper}>
             <h2>Profile</h2>
             <span>email: {userData.email}</span>
-            <span>email: {userData.email}</span>
-
         </div>
     )
 })

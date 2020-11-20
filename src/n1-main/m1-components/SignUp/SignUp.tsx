@@ -35,9 +35,9 @@ const SignUp = () => {
         }
         , [repeatPassword]);
 
-    const onSubmit = () => {
+    const onSubmit = useCallback(() => {
         dispatch(registerUser(email, password, true))
-    };
+    }, [dispatch, password, email]);
 
     const validatePass = password.length < 7 ?
         'Password must be more than 7 characters'
