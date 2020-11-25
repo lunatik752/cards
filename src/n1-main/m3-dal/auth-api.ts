@@ -1,28 +1,37 @@
 import {instance} from './instance'
-import {UserDataType} from "./profile-api";
-
-
-export type ResponseDataType = UserDataType & { error: string }
+import {ResponseDataType} from "./profile-api";
 
 
 export type ResponseDataAddedUserType = {
-    error: string
+    created: string
+    email: string
+    isAdmin: boolean
+    name: string
+    publicCardPacksCount: number
+    rememberMe: boolean
+    updated: string
+    verified: boolean
+    __v: number
+    _id: string
 }
 
 export type LogoutResponseDataType = {
-    info: string,
+    info: string
     error: string
 }
 
 
 export const authApi = {
-    register(email: string, password: string) {
-        return instance.post<ResponseDataAddedUserType>(`auth/register`, {email, password})
+    register:  async (email: string, password: string) => {
+      const response = await instance.post<ResponseDataAddedUserType>(`auth/register`, {email, password})
+        return response.data
     },
-    login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<ResponseDataType>('auth/login', {email, password, rememberMe})
+    login: async (email: string, password: string, rememberMe: boolean) => {
+        const response = await instance.post<ResponseDataType>('auth/login', {email, password, rememberMe})
+        return response.data
     },
-    logout() {
-        return instance.delete<LogoutResponseDataType>('auth/me')
+    logout: async () => {
+        const response = await instance.delete<LogoutResponseDataType>('auth/me')
+        return response.data
     }
 }

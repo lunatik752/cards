@@ -1,34 +1,48 @@
 import {Dispatch} from "redux";
-import {setIsLoggedIn, setUserData} from "./signInReducer";
-import {profileApi} from "../m3-dal/profile-api";
+import {profileApi, UserDataType} from "../m3-dal/profile-api";
+import {setIsLoggedIn, SignInActionsType} from "./signInReducer";
 
-const SET_STATUS = 'cards/profile/SET-STATUS'
-const SET_ERROR = 'cards/signIn/SET-ERROR'
-const SET_IS_INITIALIZED = 'cards/signIn/SET-USER-DATA'
+const SET_ERROR = 'cards/profile/SET-ERROR'
+const SET_IS_INITIALIZED = 'cards/profile/SET-IS-INITIALIZED'
+const SET_USER_DATA = 'cards/profile/SET-USER-DATA'
 
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+
 export type RequestErrorType = null | string
 
 export type InitialAppReducerStateType = {
-    status: RequestStatusType
     error: RequestErrorType
     isInitialized: boolean
+    userData: UserDataType
 }
 
-const initialState: InitialAppReducerStateType = {
-    status: 'idle',
+
+const initialState = {
     error: null,
-    isInitialized: false
+    isInitialized: false,
+    userData: {
+        _id: '',
+        email: '',
+        name: '',
+        publicCardPacksCount: 1,
+        created: 'null',
+        updated: '',
+        isAdmin: true,
+        verified: true,
+        rememberMe: true,
+        error: ''
+    }
 }
-export const profileReducer = (state: InitialAppReducerStateType = initialState, action: ActionsType): InitialAppReducerStateType => {
+
+export const profileReducer = (state: InitialAppReducerStateType = initialState, action: ProfileActionsType): InitialAppReducerStateType => {
     switch (action.type) {
-        case SET_STATUS:
-            return {...state, status: action.status}
         case SET_ERROR: {
             return {...state, error: action.error}
         }
-        case SET_IS_INITIALIZED:
+        case SET_IS_INITIALIZED: {
             return {...state, isInitialized: action.isInitialized}
+        }
+        case SET_USER_DATA:
+            return {...state, userData: action.userData}
         default:
             return state
 
@@ -36,18 +50,9 @@ export const profileReducer = (state: InitialAppReducerStateType = initialState,
 }
 
 // action types
-export type SetAppErrorActionType = ReturnType<typeof setAppError>
-export type SetAppStatusActionType = ReturnType<typeof setAppStatus>
-export type InitializedAppActionType = ReturnType<typeof setInitializeApp>
 
+export type ProfileActionsType = ReturnType<typeof setAppError> | ReturnType<typeof setInitializeApp> | ReturnType<typeof setUserData>
 
-type ActionsType = SetAppStatusActionType | SetAppErrorActionType | InitializedAppActionType
-
-
-// action creators
-export const setAppStatus = (status: RequestStatusType) => {
-    return {type: SET_STATUS, status} as const
-}
 
 export const setAppError = (error: RequestErrorType) => {
     return {type: SET_ERROR, error} as const
@@ -57,28 +62,27 @@ export const setInitializeApp = (isInitialized: boolean) => {
     return {type: SET_IS_INITIALIZED, isInitialized} as const
 }
 
+export const setUserData = (userData: UserDataType) => {
+    return {type: SET_USER_DATA, userData} as const
+}
+
+
 // Thunk
 
 
-export const initializeApp = () => (dispatch: Dispatch) => {
-    dispatch(setAppStatus('loading'));
-    profileApi.me()
-        .then(res => {
-            if (res.data) {
-                dispatch(setUserData(res.data));
-                dispatch(setIsLoggedIn(true));
-                dispatch(setAppStatus('succeeded'));
-            } else {
-                dispatch(setIsLoggedIn(false));
-                dispatch(setAppStatus('succeeded'));
-            }
-            dispatch(setInitializeApp(true))
-            dispatch(setAppStatus('succeeded'));
-        })
-        .catch((error) => {
-            dispatch(setAppError(error));
-        })
+export const initializeApp = () => async (dispatch: ThunkDispatch) => {
+    try {
+        const response = await profileApi.me()
+        dispatch(setUserData(response))
+        dispatch(setIsLoggedIn(true))
+    } catch (err) {
+        const error = err.response
+            ? err.response.data.error
+            : (err + 'Some kind of error has occurred');
+        dispatch(setAppError(error))    }
+dispatch(setInitializeApp(true))
+}
 
-};
+type ThunkDispatch = Dispatch<ProfileActionsType | SignInActionsType>
 
 

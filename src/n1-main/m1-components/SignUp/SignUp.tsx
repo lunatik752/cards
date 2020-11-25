@@ -36,8 +36,8 @@ const SignUp = () => {
         , [repeatPassword]);
 
     const onSubmit = useCallback(() => {
-        dispatch(registerUser(email, password, true))
-    }, [dispatch, password, email]);
+        dispatch(registerUser(email, password))
+    }, [dispatch, email, password])
 
     const validatePass = password.length < 7 ?
         'Password must be more than 7 characters'
@@ -54,9 +54,9 @@ const SignUp = () => {
         return <div>'Wait for the end of the operation...'</div>
     }
     if (addedUserData) {
-        setTimeout(() => dispatch(addedUser(false)), 2000)
         return <Redirect to={'/login'}/>
     }
+
     return (
         <div className={styles.pageWrapper}>
             <span style={{color: 'red'}}>{errorSpan}</span>
