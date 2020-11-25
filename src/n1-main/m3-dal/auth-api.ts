@@ -1,8 +1,5 @@
 import {instance} from './instance'
-import {UserDataType} from "./profile-api";
-
-
-export type ResponseDataType = UserDataType & { error: string }
+import {ResponseDataType} from "./profile-api";
 
 
 export type ResponseDataAddedUserType = {

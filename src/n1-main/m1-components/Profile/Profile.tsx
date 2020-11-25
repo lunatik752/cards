@@ -2,15 +2,15 @@ import React, { useEffect } from "react";
 import styles from './Profile.module.css'
 import {useSelector, useDispatch} from "react-redux";
 import {AppRootStateType} from "../../m2-redux/store";
-import {UserDataType} from "../../m3-dal/profile-api";
 import {initializeApp} from "../../m2-redux/profileReducer";
 import { Redirect } from "react-router-dom";
 import { SIGN_IN_PATH } from "../Routes/Routes";
+import { UserDataType } from "../../m3-dal/profile-api";
 
 
 const Profile = React.memo(() => {
 
-    const userData = useSelector<AppRootStateType, UserDataType>(state => state.signIn.userData)
+    const userData = useSelector<AppRootStateType, UserDataType>(state => state.profile.userData)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.signIn.isLoggedIn);
 
     const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import {instance} from "./instance";
-import {ResponseDataType} from "./auth-api";
 
+export type ResponseDataType = UserDataType & { error: string }
 
 export type UserDataType = {
     _id: string
@@ -13,11 +13,13 @@ export type UserDataType = {
     isAdmin: boolean
     verified: boolean
     rememberMe: boolean
+    error: string
 }
 
 export const profileApi = {
-    me() {
-        return instance.post<ResponseDataType>(`auth/me`, {})
+    me: async () => {
+        const response = await instance.post<ResponseDataType>(`auth/me`)
+        return response.data
     },
 }
 
