@@ -1,6 +1,6 @@
 import {authApi} from "../m3-dal/auth-api"
 import {Dispatch} from "redux"
-import {UserDataType} from "../m3-dal/profile-api";
+import {ProfileActionsType, setUserData} from "./profileReducer";
 
 const SET_IS_LOGGED_IN = 'cards/signIn/SET-IS-LOGGED-IN'
 const SET_ERROR = 'cards/signIn/SET-ERROR'
@@ -41,27 +41,28 @@ export const setError = (error: RequestErrorType) => ({type: SET_ERROR, error} a
 
 
 // Thunk
-export const logIn = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<SignInActionsType>) => {
-    authApi.login(email, password, rememberMe)
-        .then(res => {
-            if (res.data) {
-                dispatch(setIsLoggedIn(true));
-            } else {
-                dispatch(setError('error'))
-            }
-        })
-        .catch((error) => {
-            dispatch(setError(error.response ? error.response.data.error : 'Some error occurred'));
-        })
+export const logIn = (email: string, password: string, rememberMe: boolean) => async (dispatch: ThunkType) => {
+    const response = await authApi.login(email, password, rememberMe)
+    try {
+        dispatch(setIsLoggedIn(true))
+        dispatch(setUserData(response))
+    } catch (error) {
+        dispatch(setError(error.response ? error.response.data.error : 'Some error occurred'));
+        dispatch(setIsLoggedIn(false))
+    }
 }
 
-export const logout = () => (dispatch: Dispatch) => {
-    authApi.logout()
-        .then(res => {
-            if (res.data) {
-                dispatch(setIsLoggedIn(false));
-            } else {
-                dispatch(setError('error'));
-            }
-        })
-};
+export const logout = () => async (dispatch: ThunkType) => {
+    try {
+        const response = await authApi.logout()
+        console.log(response)
+        dispatch(setIsLoggedIn(false))
+    }
+catch (err) {
+    dispatch(setError(err.response.data.error));
+    }
+}
+
+
+
+type ThunkType = Dispatch<SignInActionsType | ProfileActionsType>

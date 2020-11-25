@@ -1,25 +1,25 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import styles from './Profile.module.css'
 import {useSelector, useDispatch} from "react-redux";
 import {AppRootStateType} from "../../m2-redux/store";
-import {initializeApp} from "../../m2-redux/profileReducer";
-import { Redirect } from "react-router-dom";
-import { SIGN_IN_PATH } from "../Routes/Routes";
-import { UserDataType } from "../../m3-dal/profile-api";
+import {initializeApp, InitialAppReducerStateType} from "../../m2-redux/profileReducer";
+import {Redirect} from "react-router-dom";
+import {SIGN_IN_PATH} from "../Routes/Routes";
+import {UserDataType} from "../../m3-dal/profile-api";
 
 
 const Profile = React.memo(() => {
 
-    const userData = useSelector<AppRootStateType, UserDataType>(state => state.profile.userData)
+    const {userData, isInitialized} = useSelector<AppRootStateType, InitialAppReducerStateType>(state => state.profile)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.signIn.isLoggedIn);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(!userData) {
+        if (!isInitialized) {
             dispatch(initializeApp())
         }
-    }, [userData,dispatch]);
+    }, [isInitialized, dispatch]);
 
     if (!isLoggedIn) {
         return <Redirect to={SIGN_IN_PATH}/>

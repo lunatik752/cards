@@ -42,25 +42,22 @@ type ActionType =
 
 const submitResidterData = (payload: boolean) => ({type: SEND_DATA, payload} as const)
 
-export const addedUser = (payload: boolean) => ({type: ADDED_USER, payload}as const)
+export const addedUser = (payload: boolean) => ({type: ADDED_USER, payload} as const)
 
-export const setErrorMessage = (payload: string) => ({type: SET_ERROR_MESSAGE, payload}as const)
+export const setErrorMessage = (payload: string) => ({type: SET_ERROR_MESSAGE, payload} as const)
 
 // Thunk
 
-export const registerUser = (email: string, password: string, isSendData: boolean) => (dispatch: Dispatch) => {
-    dispatch(submitResidterData(isSendData))
-    authApi.register(email, password)
-        .then(res => {
-            if (res.statusText === 'Created'){
-                dispatch(submitResidterData(false))
-                dispatch(addedUser(true))
-            }
-        })
-        .catch(error => {
+export const registerUser = (email: string, password: string) => async (dispatch: Dispatch) => {
+    dispatch(submitResidterData(true))
+    try {
+        await authApi.register(email, password)
+        dispatch(addedUser(true))
+        dispatch(submitResidterData(false))
+    } catch (error) {
         dispatch(submitResidterData(false))
         dispatch(addedUser(false))
         dispatch(setErrorMessage('Register failed. Try again...'))
-    })
+    }
 }
 
