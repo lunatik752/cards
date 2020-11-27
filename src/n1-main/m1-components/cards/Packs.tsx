@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {Space, Table} from 'antd';
 import 'antd/dist/antd.css';
 import Button from "../common/Button/Button";
@@ -6,7 +6,7 @@ import {Redirect} from "react-router-dom";
 import {SIGN_IN_PATH} from "../Routes/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../m2-redux/store";
-import {getPacks, PackType} from "../../m2-redux/packsReducer";
+import {addPack, getPacks, PackType} from "../../m2-redux/packsReducer";
 
 export const Packs = React.memo(() => {
 
@@ -17,6 +17,10 @@ export const Packs = React.memo(() => {
     useEffect(() => {
             dispatch(getPacks())
         }, [dispatch])
+
+   const addPackCallback = useCallback(() => {
+       dispatch(addPack('new pack'))
+   }, [dispatch])
 
   console.log(packs)
 
@@ -43,13 +47,13 @@ export const Packs = React.memo(() => {
             key: 'url',
         },
         {
-            title: <Button name={'Add pack'}/>,
+            title: <Button name={'Add pack'} onClick={addPackCallback}/>,
             dataIndex: 'addDeletePack',
             key: 'addDeletePack',
             url: '',
             render: () => (
                 <Space size="middle">
-                    <Button name={'Delete pack'}/>
+                    <Button name={'Delete pack'} />
                 </Space>
             ),
         },
