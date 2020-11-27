@@ -1,5 +1,7 @@
 import {Dispatch} from "redux";
 import {setError} from "./signInReducer";
+import {authApi} from "../m3-dal/auth-api";
+import {packsApi} from "../m3-dal/packs-api";
 
 const SET_PACKS = 'cards/packs/SET-PACKS'
 
@@ -56,8 +58,9 @@ export const setPacks = (packs: Array<PackType>) => {
 
 
 export const getPacks = () => async (dispatch: Dispatch) => {
+    const response = await packsApi.getPacks()
     try {
-
+        dispatch(setPacks(response))
     } catch (err) {
         console.log(err)
     }
