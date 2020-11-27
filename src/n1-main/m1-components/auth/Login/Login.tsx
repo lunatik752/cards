@@ -1,12 +1,12 @@
 import React, {ChangeEvent, useCallback, useState, MouseEvent} from 'react';
 import styles from './Login.module.css'
-import Button from "../common/Button/Button";
-import Input from "../common/Input/Input";
+import Button from "../../common/Button/Button";
+import Input from "../../common/Input/Input";
 import {NavLink, Redirect} from "react-router-dom";
-import {RECOVER_PASS_PATH, PROFILE_PATH, SIGN_UP_PATH} from "../Routes/Routes";
+import {RECOVER_PASS_PATH, PROFILE_PATH, SIGN_UP_PATH} from "../../Routes/Routes";
 import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from "../../m2-redux/store";
-import {logIn} from "../../m2-redux/signInReducer";
+import {AppRootStateType} from "../../../m2-redux/store";
+import {logIn} from "../../../m2-redux/signInReducer";
 
 
 const Login = React.memo(() => {

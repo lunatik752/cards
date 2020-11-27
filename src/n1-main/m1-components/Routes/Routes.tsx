@@ -1,11 +1,12 @@
 import React from 'react';
 import {Redirect, Route, Switch} from "react-router-dom";
-import Login from "../Login/Login";
-import SignUp from "../SignUp/SignUp";
+import Login from "../auth/Login/Login";
+import SignUp from "../auth/SignUp/SignUp";
 import Profile from "../Profile/Profile";
-import RecoverPass from '../RecoverPass/RecoverPass';
-import ChangePass from "../ChangePass/ChangePass";
+import RecoverPass from '../auth/RecoverPass/RecoverPass';
+import ChangePass from "../auth/ChangePass/ChangePass";
 import {Page404} from "../Page404/Page404";
+import { Packs } from '../cards/Packs';
 
 
 // all project paths
@@ -14,6 +15,7 @@ export const SIGN_UP_PATH = '/signUp';
 export const RECOVER_PASS_PATH = '/recoverPassword';
 export const PROFILE_PATH = '/profile';
 export const CHANGE_PASS_PATH = '/changePassword';
+export const PACKS_CARDS_PATH = '/packs';
 
 
 const Routes: React.FC = () => {
@@ -26,6 +28,8 @@ const Routes: React.FC = () => {
             <Route path={RECOVER_PASS_PATH} render={() => <RecoverPass/>}/>
             <Route path={PROFILE_PATH} render={() => <Profile/>}/>
             <Route path={CHANGE_PASS_PATH} render={() => <ChangePass/>}/>
+            <Route path={PACKS_CARDS_PATH} render={() => <Packs/>}/>
+
             <Route path={'*'} render={() => <Page404/>}/>
         </Switch>
     );

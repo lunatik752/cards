@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useCallback, useState} from 'react';
 import styles from './SignUp.module.css'
-import Input from '../common/Input/Input';
-import Button from '../common/Button/Button';
+import Input from '../../common/Input/Input';
+import Button from '../../common/Button/Button';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from '../../m2-redux/store';
-import {addedUser, registerUser, setErrorMessage} from '../../m2-redux/registerReducer';
+import {AppRootStateType} from '../../../m2-redux/store';
+import {registerUser, setErrorMessage} from '../../../m2-redux/registerReducer';
 import {Redirect} from 'react-router-dom';
 
 const SignUp = () => {
