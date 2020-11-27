@@ -1,11 +1,10 @@
 import React, {useEffect} from "react";
 import styles from './Profile.module.css'
-import {useSelector, useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../m2-redux/store";
-import {initializeApp, InitialAppReducerStateType} from "../../m2-redux/profileReducer";
+import {InitialAppReducerStateType, initializeApp} from "../../m2-redux/profileReducer";
 import {Redirect} from "react-router-dom";
 import {SIGN_IN_PATH} from "../Routes/Routes";
-import {UserDataType} from "../../m3-dal/profile-api";
 
 
 const Profile = React.memo(() => {
