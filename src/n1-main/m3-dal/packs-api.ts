@@ -9,10 +9,11 @@ export type GetPacksDataType = {
 
 
 export const packsApi = {
-    getPacks: async () => {
+    getPacks: async (userId?: string) => {
         const response = await instance.get<GetPacksDataType>(
             `/cards/pack?`
-            + `pageCount=1000`)
+            + `pageCount=1000`
+            + (userId ?  `&user_id=${userId}` : ''))
         return response.data
     },
     addPack: async (name: string) => {

@@ -1,9 +1,10 @@
 import {Dispatch} from "redux";
 import {packsApi} from "../m3-dal/packs-api";
-import {ThunkDispatch, ThunkAction} from "redux-thunk";
+import {ThunkAction} from "redux-thunk";
 import {AppRootStateType} from "./store";
 
 const SET_PACKS = 'cards/packs/SET-PACKS'
+const SET_USER_ID= 'cards/packs/SET-USER-ID'
 
 export type PackType = {
     _id: string;
@@ -56,9 +57,10 @@ export const setPacks = (packs: Array<PackType>) => {
     return {type: SET_PACKS, packs} as const
 }
 
+
 //thunk
-export const getPacks = () => async (dispatch: Dispatch<PacksActionsType>) => {
-    const response = await packsApi.getPacks()
+export const getPacks = (userId?: string) => async (dispatch: Dispatch<PacksActionsType>) => {
+    const response = await packsApi.getPacks(userId)
     try {
         dispatch(setPacks(response.cardPacks))
     } catch (err) {
