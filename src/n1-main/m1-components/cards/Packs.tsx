@@ -23,7 +23,7 @@ import {UserDataType} from "../../m3-dal/profile-api";
 export const Packs = React.memo(() => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.signIn.isLoggedIn);
-    const {packs, cardPacksTotalCount} = useSelector<AppRootStateType, PacksStateType>(state => state.packs)
+    const {packs, cardPacksTotalCount, currentPage} = useSelector<AppRootStateType, PacksStateType>(state => state.packs)
     const {_id} = useSelector<AppRootStateType, UserDataType>(state => state.profile.userData);
     const [myPacks, setMyPacks] = useState<boolean>(false)
     const dispatch = useDispatch();
@@ -39,9 +39,12 @@ export const Packs = React.memo(() => {
 
     const setMyPacksCallback = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setUserId(myPacks ? "" : _id))
+        if (currentPage > 1) {
+            dispatch(setCurrentPage(1))
+        }
         dispatch(getPacks())
         setMyPacks(e.target.checked)
-    }, [dispatch, _id, myPacks])
+    }, [dispatch, _id, myPacks, currentPage])
 
     const deletePackCallback = useCallback((packId: string) => {
         dispatch(deletePack(packId))
@@ -95,6 +98,7 @@ export const Packs = React.memo(() => {
     ];
     const pagination = {
         total: cardPacksTotalCount,
+        current: currentPage,
         pageSizeOptions: [
             '5', '10', '20'
         ],
