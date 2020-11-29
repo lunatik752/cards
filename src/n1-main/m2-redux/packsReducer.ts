@@ -4,7 +4,7 @@ import {ThunkAction} from "redux-thunk";
 import {AppRootStateType} from "./store";
 
 const SET_PACKS = 'cards/packs/SET-PACKS'
-// const SET_USER_ID= 'cards/packs/SET-USER-ID'
+const SET_USER_ID= 'cards/packs/SET-USER-ID'
 
 export type PackType = {
     _id: string;
@@ -29,11 +29,13 @@ export type PackType = {
 }
 
 export type PacksStateType = {
-    packs: Array<PackType>;
+    packs: Array<PackType>
+    userId: string
 }
 
 const packsInitialState: PacksStateType = {
     packs: [],
+    userId: ''
 };
 
 export const packsReducer = (state = packsInitialState, action: PacksActionsType): PacksStateType => {
@@ -43,6 +45,11 @@ export const packsReducer = (state = packsInitialState, action: PacksActionsType
                 ...state,
                 packs: action.packs,
             }
+        case SET_USER_ID:
+            return {
+            ...state,
+                userId: action.userId
+        }
         default:
             return state
 
@@ -52,14 +59,19 @@ export const packsReducer = (state = packsInitialState, action: PacksActionsType
 // action types
 
 type PacksActionsType = ReturnType<typeof setPacks>
+    |  ReturnType<typeof setUserId>
 
 export const setPacks = (packs: Array<PackType>) => {
     return {type: SET_PACKS, packs} as const
 }
+export const setUserId = (userId: string) => {
+    return {type: SET_USER_ID, userId} as const
+}
 
 
 //thunk
-export const getPacks = (userId?: string) => async (dispatch: Dispatch<PacksActionsType>) => {
+export const getPacks = () => async (dispatch: Dispatch<PacksActionsType>, getStore: () => AppRootStateType) => {
+    const {userId} = getStore().packs
     const response = await packsApi.getPacks(userId)
     try {
         dispatch(setPacks(response.cardPacks))

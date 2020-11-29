@@ -6,10 +6,10 @@ import {Redirect} from "react-router-dom";
 import {SIGN_IN_PATH} from "../Routes/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../m2-redux/store";
-import {addPack, deletePack, getPacks, PackType} from "../../m2-redux/packsReducer";
+import {addPack, deletePack, getPacks, PackType, setUserId} from "../../m2-redux/packsReducer";
 import styles from './Packs.module.css'
 import Input from "../common/Input/Input";
-import {UserDataType} from "../../m3-dal/profile-api";
+import { UserDataType } from "../../m3-dal/profile-api";
 
 
 export const Packs = React.memo(() => {
@@ -30,10 +30,9 @@ export const Packs = React.memo(() => {
     }, [dispatch])
 
     const setMyPacksCallback = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        (!myPacks)
-            ? dispatch(getPacks(_id))
-            : dispatch(getPacks())
-        setMyPacks(e.currentTarget.checked)
+        dispatch(setUserId(myPacks ? "" : _id))
+        dispatch(getPacks())
+        setMyPacks(e.target.checked)
     }, [dispatch, _id, myPacks])
 
     const deletePackCallback = useCallback((packId: string) => {
