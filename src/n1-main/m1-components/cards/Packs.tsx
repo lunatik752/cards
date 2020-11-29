@@ -6,7 +6,7 @@ import {Redirect} from "react-router-dom";
 import {SIGN_IN_PATH} from "../Routes/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../m2-redux/store";
-import {addPack, deletePack, getPacks, PackType, setUserId} from "../../m2-redux/packsReducer";
+import {addPack, deletePack, getPacks, PackType, setUserId, updatePack} from "../../m2-redux/packsReducer";
 import styles from './Packs.module.css'
 import Input from "../common/Input/Input";
 import { UserDataType } from "../../m3-dal/profile-api";
@@ -38,6 +38,12 @@ export const Packs = React.memo(() => {
     const deletePackCallback = useCallback((packId: string) => {
         dispatch(deletePack(packId))
     }, [dispatch])
+
+    const updatePackCallback = useCallback((packId: string, newTitle: string = 'updated pack') => {
+        dispatch(updatePack(packId, newTitle))
+    }, [dispatch])
+
+
 
 
     const columns= [
@@ -71,7 +77,7 @@ export const Packs = React.memo(() => {
             render: (record: PackType) => (
                 <Space size="middle">
                     <Button name={'Delete pack'} onClick={() => deletePackCallback(record._id)}/>
-                    <Button name={'Update pack'}/>
+                    <Button name={'Update pack'} onClick={() => updatePackCallback(record._id)}/>
                 </Space>
             ),
         },

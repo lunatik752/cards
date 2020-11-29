@@ -13,7 +13,7 @@ export const packsApi = {
         const response = await instance.get<GetPacksDataType>(
             `/cards/pack?`
             + `pageCount=1000`
-            + (userId ?  `&user_id=${userId}` : ''))
+            + (userId ? `&user_id=${userId}` : ''))
         return response.data
     },
     addPack: async (name: string) => {
@@ -26,6 +26,15 @@ export const packsApi = {
     },
     deletePack: async (packId: string) => {
         const response = await instance.delete(`/cards/pack?id=${packId}`)
+        return response.data
+    },
+    updatePack: async (packId: string, newTitle: string) => {
+        const response = await instance.put(`/cards/pack`, {
+            cardsPack: {
+                _id: packId,
+                name: newTitle
+            }
+        })
         return response.data
     }
 }

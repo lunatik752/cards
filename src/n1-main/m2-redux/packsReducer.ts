@@ -97,4 +97,13 @@ export const deletePack = (packId: string):ThunkAction<void, AppRootStateType, {
             console.log(err)
         }
     }
+export const updatePack = (packId: string, newTitle: string):ThunkAction<void, AppRootStateType, {}, PacksActionsType> =>
+    async (dispatch) => {
+        await packsApi.updatePack(packId, newTitle)
+        try {
+            await dispatch(getPacks())
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
