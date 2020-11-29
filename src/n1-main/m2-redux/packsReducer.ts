@@ -7,6 +7,7 @@ const SET_PACKS = 'cards/packs/SET-PACKS'
 const SET_USER_ID = 'cards/packs/SET-USER-ID'
 const SET_CARD_PACKS_TOTAL_COUNT = 'cards/packs/SET-CARD-PACKS-TOTAL-COUNT'
 const SET_CURRENT_PAGE = 'cards/packs/SET-CURRENT-PAGE'
+const SET_PAGE_SIZE = 'cards/packs/SET-PAGE-COUNT'
 
 export type PackType = {
     _id: string;
@@ -34,6 +35,7 @@ export type PacksStateType = {
     packs: Array<PackType>
     cardPacksTotalCount: number
     currentPage: number
+    pageSize?: number
     userId: string
 }
 
@@ -41,6 +43,7 @@ const packsInitialState: PacksStateType = {
     packs: [],
     cardPacksTotalCount: 1,
     currentPage: 1,
+    pageSize: 10,
     userId: ''
 };
 
@@ -67,7 +70,12 @@ export const packsReducer = (state = packsInitialState, action: PacksActionsType
                 ...state,
                 currentPage: action.currentPage
             }
-
+        }
+        case SET_PAGE_SIZE: {
+            return {
+                ...state,
+                pageSize: action.pageCount
+            }
         }
         default:
             return state
@@ -81,6 +89,7 @@ type PacksActionsType = ReturnType<typeof setPacks>
     | ReturnType<typeof setUserId>
     | ReturnType<typeof setCardPacksTotalCount>
     | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setPageSize>
 
 export const setPacks = (packs: Array<PackType>) => {
     return {type: SET_PACKS, packs} as const
@@ -94,11 +103,14 @@ export const setCardPacksTotalCount = (cardPacksTotalCount: number) => {
 export const setCurrentPage = (currentPage: number) => {
     return {type: SET_CURRENT_PAGE, currentPage} as const
 }
+export const setPageSize = (pageCount?: number) => {
+    return {type: SET_PAGE_SIZE, pageCount} as const
+}
 
 //thunk
 export const getPacks = () => async (dispatch: Dispatch<PacksActionsType>, getStore: () => AppRootStateType) => {
-    const {userId, currentPage} = getStore().packs
-    const response = await packsApi.getPacks(userId, currentPage)
+    const {userId, currentPage, pageSize} = getStore().packs
+    const response = await packsApi.getPacks(userId, currentPage, pageSize)
     try {
         dispatch(setPacks(response.cardPacks))
         dispatch(setCardPacksTotalCount(response.cardPacksTotalCount))

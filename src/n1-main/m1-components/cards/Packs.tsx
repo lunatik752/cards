@@ -11,7 +11,7 @@ import {
     deletePack,
     getPacks,
     PacksStateType,
-    PackType, setCurrentPage,
+    PackType, setCurrentPage, setPageSize,
     setUserId,
     updatePack
 } from "../../m2-redux/packsReducer";
@@ -23,7 +23,7 @@ import {UserDataType} from "../../m3-dal/profile-api";
 export const Packs = React.memo(() => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.signIn.isLoggedIn);
-    const {packs, cardPacksTotalCount, currentPage} = useSelector<AppRootStateType, PacksStateType>(state => state.packs)
+    const {packs, cardPacksTotalCount, currentPage, pageSize} = useSelector<AppRootStateType, PacksStateType>(state => state.packs)
     const {_id} = useSelector<AppRootStateType, UserDataType>(state => state.profile.userData);
     const [myPacks, setMyPacks] = useState<boolean>(false)
     const dispatch = useDispatch();
@@ -54,8 +54,9 @@ export const Packs = React.memo(() => {
         dispatch(updatePack(packId, newTitle))
     }, [dispatch])
 
-    const setCurrentPageCallback = useCallback((currentPage: number) => {
+    const setCurrentPageAndPageSizeCallback = useCallback((currentPage: number, pageSize?: number) => {
         dispatch(setCurrentPage(currentPage))
+        dispatch(setPageSize(pageSize))
         dispatch(getPacks())
     }, [dispatch])
 
@@ -99,12 +100,14 @@ export const Packs = React.memo(() => {
     const pagination = {
         total: cardPacksTotalCount,
         current: currentPage,
+        pageSize: pageSize,
         pageSizeOptions: [
             '5', '10', '20'
         ],
-        onChange: (page: number) => {
-            setCurrentPageCallback(page)
-        }
+        onChange: (page: number, pageSize?: number) => {
+            setCurrentPageAndPageSizeCallback(page, pageSize)
+            console.log(pageSize);
+        },
     }
 
     if (!isLoggedIn) {

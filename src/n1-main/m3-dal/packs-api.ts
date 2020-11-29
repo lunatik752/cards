@@ -7,13 +7,12 @@ export type GetPacksDataType = {
     error: string;
 }
 
-
 export const packsApi = {
-    getPacks: async (userId: string, pageNumber: number) => {
+    getPacks: async (userId: string, currentPage: number, pageSize?: number) => {
         const response = await instance.get<GetPacksDataType>(
             `/cards/pack?`
-            + `page=${pageNumber}`
-            + `&pageCount=10`
+            + `page=${currentPage}`
+            + `&pageCount=${pageSize}`
             + (userId ? `&user_id=${userId}` : ''))
         console.log(response.data)
         return response.data
