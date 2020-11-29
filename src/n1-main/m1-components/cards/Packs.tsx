@@ -6,7 +6,7 @@ import {Redirect} from "react-router-dom";
 import {SIGN_IN_PATH} from "../Routes/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../m2-redux/store";
-import {addPack, getPacks, PackType} from "../../m2-redux/packsReducer";
+import {addPack, deletePack, getPacks, PackType} from "../../m2-redux/packsReducer";
 import styles from './Packs.module.css'
 import Input from "../common/Input/Input";
 import {UserDataType} from "../../m3-dal/profile-api";
@@ -36,56 +36,55 @@ export const Packs = React.memo(() => {
         setMyPacks(e.currentTarget.checked)
     }, [dispatch, _id, myPacks])
 
+    const deletePackCallback = useCallback((packId: string) => {
+        dispatch(deletePack(packId))
+    }, [dispatch])
 
-    const columns = [
+
+    const columns= [
         {
             title: 'Pack name ',
             dataIndex: 'name',
-            key: '_id',
             align: 'center' as const
 
         },
         {
             title: 'Cards count',
             dataIndex: 'cardsCount',
-            key: '_id',
             align: 'center' as const
 
         },
         {
             title: 'Update date',
             dataIndex: 'updated',
-            key: '_id',
             align: 'center' as const
 
         },
-        {
-            title: 'Url',
-            dataIndex: 'url',
-            key: '_id',
-            align: 'center' as const
-
-        },
+        // {
+        //     title: 'Url',
+        //     dataIndex: 'Url',
+        //     key: '_id',
+        //     align: 'center' as const
+        //
+        // },
         {
             title: <Button name={'Add pack'} onClick={addPackCallback}/>,
-            dataIndex: 'addDeletePack',
-            key: '_id',
-            render: () => (
+            render: (record: PackType) => (
                 <Space size="middle">
-                    <Button name={'Delete pack'}/>
+                    <Button name={'Delete pack'} onClick={() => deletePackCallback(record._id)}/>
                     <Button name={'Update pack'}/>
                 </Space>
             ),
         },
     ];
-    const pagination = {
-        pageSizeOptions: [
-            '5', '10', '20'
-        ],
-        onChange: () => {
-            alert('hay')
-        }
-    }
+    // const pagination = {
+    //     pageSizeOptions: [
+    //         '5', '10', '20'
+    //     ],
+    //     onChange: () => {
+    //         alert('1234')
+    //     }
+    // }
 
     if (!isLoggedIn) {
         return <Redirect to={SIGN_IN_PATH}/>
@@ -102,7 +101,11 @@ export const Packs = React.memo(() => {
                 />
                 <label> - my packs</label>
             </div>
-            <Table dataSource={packs} pagination={pagination} columns={columns} bordered={true} className={styles.table}/>
+            <Table
+                rowKey={'_id'}
+                dataSource={packs}
+                columns={columns}
+                bordered={true}/>
         </div>
     )
 })

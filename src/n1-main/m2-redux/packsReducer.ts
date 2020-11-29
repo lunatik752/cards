@@ -4,7 +4,7 @@ import {ThunkAction} from "redux-thunk";
 import {AppRootStateType} from "./store";
 
 const SET_PACKS = 'cards/packs/SET-PACKS'
-const SET_USER_ID= 'cards/packs/SET-USER-ID'
+// const SET_USER_ID= 'cards/packs/SET-USER-ID'
 
 export type PackType = {
     _id: string;
@@ -76,4 +76,13 @@ export const addPack = (name: string): ThunkAction<void, AppRootStateType, {}, P
     }
 }
 
+export const deletePack = (packId: string):ThunkAction<void, AppRootStateType, {}, PacksActionsType> =>
+    async (dispatch) => {
+        await packsApi.deletePack(packId)
+        try {
+            await dispatch(getPacks())
+        } catch (err) {
+            console.log(err)
+        }
+    }
 

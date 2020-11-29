@@ -17,11 +17,15 @@ export const packsApi = {
         return response.data
     },
     addPack: async (name: string) => {
-        const response = await instance.post("/cards/pack", {
+        const response = await instance.post(`/cards/pack`, {
             cardsPack: {
                 name: name
             }
         })
+        return response.data
+    },
+    deletePack: async (packId: string) => {
+        const response = await instance.delete(`/cards/pack?id=${packId}`)
         return response.data
     }
 }
