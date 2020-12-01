@@ -2,8 +2,8 @@ import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
 import {Space, Table} from 'antd';
 import 'antd/dist/antd.css';
 import Button from "../common/Button/Button";
-import {Redirect} from "react-router-dom";
-import {SIGN_IN_PATH} from "../Routes/Routes";
+import {NavLink, Redirect} from "react-router-dom";
+import {PACKS_PATH, SIGN_IN_PATH, CARDS_PATH} from "../Routes/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../m2-redux/store";
 import {
@@ -93,6 +93,7 @@ export const Packs = React.memo(() => {
                 <Space size="middle">
                     <Button name={'Delete pack'} onClick={() => deletePackCallback(record._id)}/>
                     <Button name={'Update pack'} onClick={() => updatePackCallback(record._id)}/>
+                    <NavLink to={`/cards/${record._id}`}>Cards</NavLink>
                 </Space>
             ),
         },
@@ -106,7 +107,6 @@ export const Packs = React.memo(() => {
         ],
         onChange: (page: number, pageSize?: number) => {
             setCurrentPageAndPageSizeCallback(page, pageSize)
-            console.log(pageSize);
         },
     }
 

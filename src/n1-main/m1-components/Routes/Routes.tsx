@@ -7,6 +7,7 @@ import RecoverPass from '../auth/RecoverPass/RecoverPass';
 import ChangePass from "../auth/ChangePass/ChangePass";
 import {Page404} from "../Page404/Page404";
 import { Packs } from '../cards/Packs';
+import { Cards } from '../cards/Cards';
 
 
 // all project paths
@@ -15,7 +16,8 @@ export const SIGN_UP_PATH = '/signUp';
 export const RECOVER_PASS_PATH = '/recoverPassword';
 export const PROFILE_PATH = '/profile';
 export const CHANGE_PASS_PATH = '/changePassword';
-export const PACKS_CARDS_PATH = '/packs';
+export const PACKS_PATH = '/packs';
+export const CARDS_PATH = '/cards/:id'
 
 
 const Routes: React.FC = () => {
@@ -28,7 +30,8 @@ const Routes: React.FC = () => {
             <Route path={RECOVER_PASS_PATH} render={() => <RecoverPass/>}/>
             <Route path={PROFILE_PATH} render={() => <Profile/>}/>
             <Route path={CHANGE_PASS_PATH} render={() => <ChangePass/>}/>
-            <Route path={PACKS_CARDS_PATH} render={() => <Packs/>}/>
+            <Route path={PACKS_PATH} render={() => <Packs/>}/>
+            <Route path={CARDS_PATH} render={() => <Cards/>}/>
 
             <Route path={'*'} render={() => <Page404/>}/>
         </Switch>
