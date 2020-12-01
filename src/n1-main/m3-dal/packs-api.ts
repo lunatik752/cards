@@ -14,7 +14,6 @@ export const packsApi = {
             + `page=${currentPage}`
             + `&pageCount=${pageSize}`
             + (userId ? `&user_id=${userId}` : ''))
-        console.log(response.data)
         return response.data
 
     },
