@@ -1,23 +1,9 @@
-import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import {Space, Table} from 'antd';
 import 'antd/dist/antd.css';
 import Button from "../common/Button/Button";
-import {Redirect} from "react-router-dom";
-import {SIGN_IN_PATH} from "../Routes/Routes";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../m2-redux/store";
-import {
-    addPack,
-    deletePack,
-    getPacks,
-    PacksStateType,
-    PackType, setCurrentPage, setPageSize,
-    setUserId,
-    updatePack
-} from "../../m2-redux/packsReducer";
+import {PackType} from "../../m2-redux/packsReducer";
 import styles from './Packs.module.css'
-import Input from "../common/Input/Input";
-import {UserDataType} from "../../m3-dal/profile-api";
 
 
 export const Cards = React.memo(() => {
