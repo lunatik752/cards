@@ -5,8 +5,9 @@ import Button from "../common/Button/Button";
 import styles from './Packs.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../m2-redux/store";
-import {CardType, getCards} from "../../m2-redux/cardsReducer";
+import {addCard, CardType, getCards} from "../../m2-redux/cardsReducer";
 import {useParams} from "react-router-dom";
+import {addPack} from "../../m2-redux/packsReducer";
 
 
 export const Cards = React.memo(() => {
@@ -20,9 +21,9 @@ export const Cards = React.memo(() => {
     }, [dispatch, id])
 
 
-    const addCardCallback = useEffect(() => {
-        console.log()
-    })
+    const addCardCallback = useCallback(() => {
+        dispatch(addCard(id, 'my question', 'answer' ))
+    }, [dispatch, id])
 
     const deleteCardCallback = useEffect(() => {
         console.log()
@@ -31,10 +32,6 @@ export const Cards = React.memo(() => {
     const updateCardPackCallback = useEffect(() => {
         console.log()
     })
-
-    const setCurrentPageAndPageSizeCallback = useCallback((currentPage: number, pageSize?: number) => {
-
-    }, [])
 
 
     const columns = [
@@ -57,7 +54,7 @@ export const Cards = React.memo(() => {
 
         },
         {
-            title: <Button name={'Add card'} onClick={() => addCardCallback}/>,
+            title: <Button name={'Add card'} onClick={addCardCallback}/>,
             render: (record: CardType) => (
                 <Space size="middle">
                     <Button name={'Delete card'} onClick={() => deleteCardCallback}/>

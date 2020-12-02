@@ -1,5 +1,5 @@
 import {instance} from "./instance";
-import {CardType} from "../m2-redux/cardsReducer";
+import { CardType } from "../m2-redux/cardsReducer";
 
 export type GetCardsDataType = {
     cards: Array<CardType>
@@ -13,14 +13,16 @@ export const cardsApi = {
             `/cards/card?`
             + `cardsPack_id=${cardsPack_id}`
             + `&pageCount=30`
-           )
+        )
         return response.data
 
     },
-    addCard: async (name: string) => {
+    addCard: async (packId: string, question: string, answer: string) => {
         const response = await instance.post(`/cards/card`, {
-            cardsPack: {
-                name: name
+            card: {
+                cardsPack_id: packId,
+                question,
+                answer
             }
         })
         return response.data

@@ -63,14 +63,19 @@ export const setCards = (cards: Array<CardType>) => {
 //thunk
 export const getCards = (packId: string) => async (dispatch: Dispatch<CardsActionsType>) => {
     const response = await cardsApi.getCards(packId)
+    debugger
     dispatch(setCards(response.cards))
     try {
     } catch (err) {
         console.log(err)
     }
 }
-export const addPack = (name: string): ThunkAction<void, AppRootStateType, {}, CardsActionsType> => async (dispatch) => {
+
+export const addCard = (packId: string, question: string, answer: string): ThunkAction<void, AppRootStateType, {}, CardsActionsType> => async (dispatch) => {
+    await cardsApi.addCard(packId, question, answer)
+    debugger
     try {
+        await dispatch(getCards(packId))
     } catch (err) {
         console.log(err)
     }
