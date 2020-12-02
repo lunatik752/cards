@@ -2,18 +2,17 @@ import {instance} from "./instance";
 import {CardType} from "../m2-redux/cardsReducer";
 
 export type GetCardsDataType = {
-    cardPacks: Array<CardType>
+    cards: Array<CardType>
     cardsTotalCount: number
     error: string;
 }
 
 export const cardsApi = {
-    getCards: async (cardsPack_id: string, currentPage: number, pageSize: number) => {
+    getCards: async (cardsPack_id: string) => {
         const response = await instance.get<GetCardsDataType>(
             `/cards/card?`
-            + `&cardsPack_id=${cardsPack_id}`
-            + `page=${currentPage}`
-            + `&pageCount=${pageSize}`
+            + `cardsPack_id=${cardsPack_id}`
+            + `&pageCount=30`
            )
         return response.data
 

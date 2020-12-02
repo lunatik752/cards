@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {AppRootStateType} from "./store";
+import {cardsApi} from "../m3-dal/cards-api";
 
 
 export type CardType = {
@@ -30,16 +31,10 @@ export type CardType = {
 
 export type PacksStateType = {
     cards: Array<CardType>
-    cardsTotalCount: number
-    currentPage: number
-    pageSize?: number
 }
 
 const packsInitialState: PacksStateType = {
-    cards: [],
-    cardsTotalCount: 1,
-    currentPage: 1,
-    pageSize: 10,
+    cards: []
 };
 
 export const cardsReducer = (state = packsInitialState, action: CardsActionsType): PacksStateType => {
@@ -49,25 +44,6 @@ export const cardsReducer = (state = packsInitialState, action: CardsActionsType
                 ...state,
                 cards: action.cards,
             }
-
-        case 'cards/cards/SET-CARDS-TOTAL-COUNT': {
-            return {
-                ...state,
-                cardsTotalCount: action.cardsTotalCount
-            }
-        }
-        case 'cards/cards/SET-CURRENT-PAGE': {
-            return {
-                ...state,
-                currentPage: action.currentPage
-            }
-        }
-        case 'cards/cards/SET-PAGE-COUNT': {
-            return {
-                ...state,
-                pageSize: action.pageCount
-            }
-        }
         default:
             return state
 
@@ -76,29 +52,19 @@ export const cardsReducer = (state = packsInitialState, action: CardsActionsType
 
 // action types
 
-type CardsActionsType = ReturnType<typeof setPacks>
-    | ReturnType<typeof setCardPacksTotalCount>
-    | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setPageSize>
+type CardsActionsType = ReturnType<typeof setCards>
 
-export const setPacks = (cards: Array<CardType>) => {
+
+export const setCards = (cards: Array<CardType>) => {
     return {type: 'cards/cards/SET-CARDS', cards} as const
 }
 
-export const setCardPacksTotalCount = (cardsTotalCount: number) => {
-    return {type: 'cards/cards/SET-CARDS-TOTAL-COUNT', cardsTotalCount} as const
-}
-export const setCurrentPage = (currentPage: number) => {
-    return {type: 'cards/cards/SET-CURRENT-PAGE', currentPage} as const
-}
-export const setPageSize = (pageCount?: number) => {
-    return {type: 'cards/cards/SET-PAGE-COUNT', pageCount} as const
-}
 
 //thunk
-export const getCards = () => async (dispatch: Dispatch<CardsActionsType>, getStore: () => AppRootStateType) => {
+export const getCards = (packId: string) => async (dispatch: Dispatch<CardsActionsType>) => {
+    const response = await cardsApi.getCards(packId)
+    dispatch(setCards(response.cards))
     try {
-
     } catch (err) {
         console.log(err)
     }
