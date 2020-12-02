@@ -31,9 +31,9 @@ export const cardsApi = {
         const response = await instance.delete(`/cards/card?id=${cardId}`)
         return response.data
     },
-    updateCurd: async (cardId: string, newQuestion: string) => {
-        const response = await instance.put(`/cards/pack`, {
-            cardsPack: {
+    updateCard: async (cardId: string, newQuestion: string) => {
+        const response = await instance.put(`/cards/card`, {
+            card: {
                 _id: cardId,
                 question: newQuestion
             }

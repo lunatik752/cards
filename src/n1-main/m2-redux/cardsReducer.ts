@@ -81,15 +81,17 @@ export const addCard = (packId: string, question: string, answer: string): Thunk
 
 export const deleteCard = (cardId: string, packId: string): ThunkAction<void, AppRootStateType, {}, CardsActionsType> => async (dispatch) => {
     await cardsApi.deleteCard(cardId)
+    try {
+        await dispatch(getCards(packId))
+    } catch (err) {
+        console.log(err)
+    }
+}
+export const updateCard = (cardId: string, newQuestion: string, packId: string): ThunkAction<void, AppRootStateType, {}, CardsActionsType> =>
+    async (dispatch) => {
+        await cardsApi.updateCard(cardId, newQuestion)
         try {
             await dispatch(getCards(packId))
-        } catch (err) {
-            console.log(err)
-        }
-    }
-export const updatePack = (packId: string, newTitle: string): ThunkAction<void, AppRootStateType, {}, CardsActionsType> =>
-    async (dispatch) => {
-        try {
         } catch (err) {
             console.log(err)
         }

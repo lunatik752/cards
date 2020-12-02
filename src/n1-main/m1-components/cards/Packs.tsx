@@ -3,7 +3,7 @@ import {Space, Table} from 'antd';
 import 'antd/dist/antd.css';
 import Button from "../common/Button/Button";
 import {NavLink, Redirect} from "react-router-dom";
-import {PACKS_PATH, SIGN_IN_PATH, CARDS_PATH} from "../Routes/Routes";
+import {SIGN_IN_PATH} from "../Routes/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../m2-redux/store";
 import {
@@ -11,7 +11,9 @@ import {
     deletePack,
     getPacks,
     PacksStateType,
-    PackType, setCurrentPage, setPageSize,
+    PackType,
+    setCurrentPage,
+    setPageSize,
     setUserId,
     updatePack
 } from "../../m2-redux/packsReducer";
