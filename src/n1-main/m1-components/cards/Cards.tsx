@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from "react";
-import {Space, Table} from 'antd';
+import {Modal, Space, Table} from 'antd';
 import 'antd/dist/antd.css';
 import Button from "../common/Button/Button";
 import styles from './Packs.module.css'
@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../m2-redux/store";
 import {addCard, CardType, deleteCard, getCards, updateCard} from "../../m2-redux/cardsReducer";
 import {useParams} from "react-router-dom";
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 
 export const Cards = React.memo(() => {
@@ -14,6 +15,7 @@ export const Cards = React.memo(() => {
     const cards = useSelector<AppRootStateType, Array<CardType>>(state => state.cards.cards)
     const {id} = useParams()
     const dispatch = useDispatch();
+    const { confirm } = Modal;
 
     useEffect(() => {
         dispatch(getCards(id))
@@ -31,6 +33,24 @@ dispatch(deleteCard(cardId, id))
     const updateCardCallback = useCallback((cardId: string) => {
         dispatch(updateCard(cardId, 'new question', id))
     }, [dispatch, id])
+
+    const showDeleteConfirm = (cardId: string) => {
+        confirm({
+            title: 'Are you sure delete this card?',
+            icon: <ExclamationCircleOutlined />,
+            content: '',
+            okText: 'Yes',
+            okType: 'danger',
+            cancelText: 'No',
+            onOk() {
+                deleteCardCallback(cardId)
+                console.log('OK');
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
+    }
 
 
     const columns = [
@@ -56,7 +76,7 @@ dispatch(deleteCard(cardId, id))
             title: <Button name={'Add card'} onClick={addCardCallback}/>,
             render: (record: CardType) => (
                 <Space size="middle">
-                    <Button name={'Delete card'} onClick={() => deleteCardCallback(record._id)}/>
+                    <Button name={'Delete card'} onClick={() => showDeleteConfirm(record._id)}/>
                     <Button name={'Update card'} onClick={() => updateCardCallback(record._id)}/>
                 </Space>
             ),
