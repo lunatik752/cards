@@ -44,10 +44,6 @@ dispatch(deleteCard(cardId, id))
             cancelText: 'No',
             onOk() {
                 deleteCardCallback(cardId)
-                console.log('OK');
-            },
-            onCancel() {
-                console.log('Cancel');
             },
         });
     }

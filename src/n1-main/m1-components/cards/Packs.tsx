@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
-import {Space, Table} from 'antd';
+import {Modal, Space, Table} from 'antd';
 import 'antd/dist/antd.css';
 import Button from "../common/Button/Button";
 import {NavLink, Redirect} from "react-router-dom";
@@ -20,6 +20,7 @@ import {
 import styles from './Packs.module.css'
 import Input from "../common/Input/Input";
 import {UserDataType} from "../../m3-dal/profile-api";
+import {ExclamationCircleOutlined} from "@ant-design/icons";
 
 
 export const Packs = React.memo(() => {
@@ -29,7 +30,8 @@ export const Packs = React.memo(() => {
     const {_id} = useSelector<AppRootStateType, UserDataType>(state => state.profile.userData);
     const [myPacks, setMyPacks] = useState<boolean>(false)
     const dispatch = useDispatch();
-    console.log(packs);
+    const { confirm } = Modal;
+
 
     useEffect(() => {
         dispatch(getPacks())
@@ -82,18 +84,11 @@ export const Packs = React.memo(() => {
             align: 'center' as const
 
         },
-        // {
-        //     title: 'Url',
-        //     dataIndex: 'Url',
-        //     key: '_id',
-        //     align: 'center' as const
-        //
-        // },
         {
             title: <Button name={'Add pack'} onClick={addPackCallback}/>,
             render: (record: PackType) => (
                 <Space size="middle">
-                    <Button name={'Delete pack'} onClick={() => deletePackCallback(record._id)}/>
+                    <Button name={'Delete pack'} onClick={() => showDeleteConfirm(record._id)}/>
                     <Button name={'Update pack'} onClick={() => updatePackCallback(record._id)}/>
                     <NavLink to={`/cards/${record._id}`}>Cards</NavLink>
                 </Space>
@@ -110,6 +105,20 @@ export const Packs = React.memo(() => {
         onChange: (page: number, pageSize?: number) => {
             setCurrentPageAndPageSizeCallback(page, pageSize)
         },
+    }
+
+    const showDeleteConfirm = (packId: string) => {
+        confirm({
+            title: 'Are you sure delete this pack?',
+            icon: <ExclamationCircleOutlined />,
+            content: '',
+            okText: 'Yes',
+            okType: 'danger',
+            cancelText: 'No',
+            onOk() {
+                deletePackCallback(packId)
+            },
+        });
     }
 
     if (!isLoggedIn) {
