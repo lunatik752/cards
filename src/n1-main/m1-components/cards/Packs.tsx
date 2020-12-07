@@ -26,20 +26,46 @@ import {ExclamationCircleOutlined} from "@ant-design/icons";
 export const Packs = React.memo(() => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.signIn.isLoggedIn);
-    const {packs, cardPacksTotalCount, currentPage, pageSize} = useSelector<AppRootStateType, PacksStateType>(state => state.packs)
+    const {
+        packs,
+        cardPacksTotalCount,
+        currentPage,
+        pageSize
+    } = useSelector<AppRootStateType, PacksStateType>(state => state.packs)
     const {_id} = useSelector<AppRootStateType, UserDataType>(state => state.profile.userData);
+
+// state for checkbox my pack
     const [myPacks, setMyPacks] = useState<boolean>(false)
+
+// state for modal window
+    const [visible, setVisible] = useState(false);
+    // const [confirmLoading, setConfirmLoading] = useState(false);
+    const [title, setTitle] = useState('')
+
     const dispatch = useDispatch();
-    const { confirm } = Modal;
+
+    const {confirm} = Modal;
 
 
     useEffect(() => {
         dispatch(getPacks())
     }, [dispatch])
 
+    const setTitleCallback = useCallback((e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value),
+        [setTitle]);
+
     const addPackCallback = useCallback(() => {
-        dispatch(addPack('new pack'))
-    }, [dispatch])
+        setVisible(true);
+    }, [])
+
+
+    const handleOk = () => {
+        dispatch(addPack(title))
+        setVisible(false);
+    }
+
+    const handleCancel = () => {
+    };
 
     const setMyPacksCallback = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setUserId(myPacks ? "" : _id))
@@ -110,7 +136,7 @@ export const Packs = React.memo(() => {
     const showDeleteConfirm = (packId: string) => {
         confirm({
             title: 'Are you sure delete this pack?',
-            icon: <ExclamationCircleOutlined />,
+            icon: <ExclamationCircleOutlined/>,
             content: '',
             okText: 'Yes',
             okType: 'danger',
@@ -143,6 +169,17 @@ export const Packs = React.memo(() => {
                 bordered={true}
                 pagination={pagination}
             />
+            <Modal
+                title="Enter title of pack"
+                visible={visible}
+                onOk={handleOk}
+                // confirmLoading={confirmLoading}
+                onCancel={handleCancel}>
+                <Input value={title}
+                       onChange={setTitleCallback}/>
+            </Modal>
         </div>
     )
 })
+
+
