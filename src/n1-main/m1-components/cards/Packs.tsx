@@ -38,12 +38,12 @@ export const Packs = React.memo(() => {
     const [myPacks, setMyPacks] = useState<boolean>(false)
 
 // state for modal window
-    const [visibleAddPack, setVisibleAddPack] = useState(false);
-    const [visibleUpdatePack, setVisibleUpdatePack] = useState(false);
+    const [visibleAddPack, setVisibleAddPack] = useState<boolean>(false);
+    const [visibleUpdatePack, setVisibleUpdatePack] = useState<boolean>(false);
 
     // const [confirmLoading, setConfirmLoading] = useState(false);
-    const [title, setTitle] = useState('')
-    const [packId, setPackId] = useState('')
+    const [title, setTitle] = useState<string>('')
+    const [packId, setPackId] = useState<string>('')
 
     const dispatch = useDispatch();
 
