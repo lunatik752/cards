@@ -21,7 +21,6 @@ import styles from './Packs.module.css'
 import Input from "../common/Input/Input";
 import {UserDataType} from "../../m3-dal/profile-api";
 import {ExclamationCircleOutlined} from "@ant-design/icons";
-import {ModalContainer} from "../../../n2-features/modal/ModalContainer";
 
 
 export const Packs = React.memo(() => {
