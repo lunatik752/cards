@@ -24,9 +24,6 @@ const Profile = React.memo(() => {
         return <Redirect to={SIGN_IN_PATH}/>
     }
 
-
-    console.log(userData);
-
     return (
         <div className={styles.pageWrapper}>
             <h2>Profile</h2>

@@ -21,6 +21,7 @@ import styles from './Packs.module.css'
 import Input from "../common/Input/Input";
 import {UserDataType} from "../../m3-dal/profile-api";
 import {ExclamationCircleOutlined} from "@ant-design/icons";
+import {ModalContainer} from "../../../n2-features/modal/ModalContainer";
 
 
 export const Packs = React.memo(() => {
@@ -38,9 +39,12 @@ export const Packs = React.memo(() => {
     const [myPacks, setMyPacks] = useState<boolean>(false)
 
 // state for modal window
-    const [visible, setVisible] = useState(false);
+    const [visibleAddPack, setVisibleAddPack] = useState(false);
+    const [visibleUpdatePack, setVisibleUpdatePack] = useState(false);
+
     // const [confirmLoading, setConfirmLoading] = useState(false);
     const [title, setTitle] = useState('')
+    const [packId, setPackId] = useState('')
 
     const dispatch = useDispatch();
 
@@ -55,16 +59,35 @@ export const Packs = React.memo(() => {
         [setTitle]);
 
     const addPackCallback = useCallback(() => {
-        setVisible(true);
+        setVisibleAddPack(true);
     }, [])
 
+    const updatePackCallback = useCallback((packId: string, title: string) => {
+        setVisibleUpdatePack(true);
+        setTitle(title)
+        setPackId(packId)
+    }, [])
 
-    const handleOk = () => {
+    const handleAddOk = () => {
         dispatch(addPack(title))
-        setVisible(false);
+        setVisibleAddPack(false);
+        setTitle('')
     }
 
-    const handleCancel = () => {
+    const handleAddPackCancel = () => {
+        setVisibleAddPack(false);
+        setTitle('')
+    };
+
+    const handleUpdateOk = () => {
+        dispatch(updatePack( packId, title))
+        setVisibleUpdatePack(false);
+        setTitle('')
+    }
+
+    const handleUpdatePackCancel = () => {
+        setVisibleUpdatePack(false);
+        setTitle('')
     };
 
     const setMyPacksCallback = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -76,13 +99,11 @@ export const Packs = React.memo(() => {
         setMyPacks(e.target.checked)
     }, [dispatch, _id, myPacks, currentPage])
 
+
     const deletePackCallback = useCallback((packId: string) => {
         dispatch(deletePack(packId))
     }, [dispatch])
 
-    const updatePackCallback = useCallback((packId: string, newTitle: string = 'updated pack') => {
-        dispatch(updatePack(packId, newTitle))
-    }, [dispatch])
 
     const setCurrentPageAndPageSizeCallback = useCallback((currentPage: number, pageSize?: number) => {
         dispatch(setCurrentPage(currentPage))
@@ -115,7 +136,7 @@ export const Packs = React.memo(() => {
             render: (record: PackType) => (
                 <Space size="middle">
                     <Button name={'Delete pack'} onClick={() => showDeleteConfirm(record._id)}/>
-                    <Button name={'Update pack'} onClick={() => updatePackCallback(record._id)}/>
+                    <Button name={'Update pack'} onClick={() => updatePackCallback(record._id, record.name)}/>
                     <NavLink to={`/cards/${record._id}`}>Cards</NavLink>
                 </Space>
             ),
@@ -170,11 +191,20 @@ export const Packs = React.memo(() => {
                 pagination={pagination}
             />
             <Modal
-                title="Enter title of pack"
-                visible={visible}
-                onOk={handleOk}
+                title='Enter title of pack'
+                visible={visibleAddPack}
+                onOk={handleAddOk}
                 // confirmLoading={confirmLoading}
-                onCancel={handleCancel}>
+                onCancel={handleAddPackCancel}>
+                <Input value={title}
+                       onChange={setTitleCallback}/>
+            </Modal>
+            <Modal
+                title='Enter new title of pack'
+                visible={visibleUpdatePack}
+                onOk={handleUpdateOk}
+                // confirmLoading={confirmLoading}
+                onCancel={handleUpdatePackCancel}>
                 <Input value={title}
                        onChange={setTitleCallback}/>
             </Modal>

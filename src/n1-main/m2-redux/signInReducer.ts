@@ -55,7 +55,6 @@ export const logIn = (email: string, password: string, rememberMe: boolean) => a
 export const logout = () => async (dispatch: ThunkType) => {
     try {
         const response = await authApi.logout()
-        console.log(response)
         dispatch(setIsLoggedIn(false))
     }
 catch (err) {
