@@ -11,6 +11,8 @@ import {useParams} from "react-router-dom";
 
 export const Cards = React.memo(() => {
 
+    console.log('test message')
+
     const cards = useSelector<AppRootStateType, Array<CardType>>(state => state.cards.cards)
     const {id} = useParams()
     const dispatch = useDispatch();
